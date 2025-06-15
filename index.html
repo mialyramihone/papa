@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonne Fête à tous les Papas</title>
+    <meta name="description" content="Célébrons les papas avec amour et gratitude. Découvrez des messages inspirants et des idées de cadeaux pour la fête des pères.">
+    <link rel="icon" href="IMG/fond2-copie.ico" >
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --primary-dark: #2563EB;
+            --accent: #F59E0B;
+            --light: #F8FAFC;
+            --dark: #1E293B;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f0f7ff, #e6f0fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--dark);
+        }
+        
+        .hero-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            perspective: 1000px;
+        }
+        
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            transform-style: preserve-3d;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                        opacity 0.8s ease, 
+                        box-shadow 0.8s ease;
+            transform: rotateY(20deg) translateX(150%) scale(0.8);
+            opacity: 0;
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .slide.active {
+            transform: rotateY(0) translateX(0) scale(1);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .slide.prev {
+            transform: rotateY(-20deg) translateX(-150%) scale(0.8);
+            opacity: 0;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.1);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .icon {
+            font-size: 5rem;
+            margin: 1.5rem 0;
+            filter: drop-shadow(0 5px 10px rgba(59, 130, 246, 0.2));
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            z-index: 20;
+            position: relative;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            z-index: 20;
+            position: relative;
+        }
+        
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #E2E8F0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .dot.active {
+            background: var(--primary);
+            transform: scale(1.4);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 2rem 1.5rem;
+                height: 450px;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .icon {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-container">
+        <div class="slider" id="slider">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <h2>Bonne Fête à tous les Papas</h2>
+                <div class="icon">👨‍👧‍👦</div>
+                <p>En cette journée spéciale, nous célébrons tous les pères extraordinaires qui font la différence chaque jour.</p>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="slide">
+                <h2>Nos Héros du Quotidien</h2>
+                <div class="icon">🦸‍♂️</div>
+                <p>Merci d'être ces rocs inébranlables, ces protecteurs discrets qui veillent sans faire de bruit.</p>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="slide">
+                <h2>Votre Amour Infini</h2>
+                <div class="icon">❤️</div>
+                <p>Votre tendresse est comme l'océan - vaste, profonde et toujours présente, même quand elle semble calme.</p>
+            </div>
+            
+            <!-- Slide 4 -->
+            <div class="slide">
+                <h2>Bonne Fête !</h2>
+                <div class="icon">🎉</div>
+                <p>Que cette journée vous apporte autant de bonheur que vous en donnez chaque jour à vos enfants.</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="prevSlide()">Précédent</button>
+            <button class="btn" onclick="nextSlide()">Suivant</button>
+        </div>
+        
+        <div class="dots" id="dots">
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+            <div class="dot" onclick="goToSlide(2)"></div>
+            <div class="dot" onclick="goToSlide(3)"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+        
+        function updateSlider() {
+            // Animation 3D des slides
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+            
+            // Mise à jour de la pagination
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Lancer des confettis pour la dernière slide
+            if (currentSlide === totalSlides - 1) {
+                createConfetti();
+            }
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+        
+        // Créer des confettis
+        function createConfetti() {
+            const colors = ['#3B82F6', '#F59E0B', '#10B981', '#EF4444', '#8B5CF6'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    const animationDuration = 3000 + Math.random() * 2000;
+                    
+                    confetti.animate([
+                        { 
+                            transform: `translate(${Math.random() * 200 - 100}px, ${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`,
+                            opacity: 1 
+                        },
+                        { opacity: 0 }
+                    ], {
+                        duration: animationDuration,
+                        easing: 'cubic-bezier(0.1,0.8,0.3,1)'
+                    });
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, animationDuration);
+                }, i * 50);
+            }
+        }
+        
+        // Navigation clavier
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        // Animation automatique
+        let autoSlide = setInterval(nextSlide, 5000);
+        
+        // Arrêter l'animation automatique quand l'utilisateur interagit
+        function resetAutoSlide() {
+            clearInterval(autoSlide);
+            autoSlide = setInterval(nextSlide, 5000);
+        }
+        
+        document.querySelectorAll('.btn, .dot').forEach(element => {
+            element.addEventListener('click', resetAutoSlide);
+        });
+    </script>
+</body>
+</html>
