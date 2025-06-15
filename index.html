@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Mialy RAMIHONE">
+    <link rel="icon" href="img/fond2-copie.ico" type="IMG/icon">
+    <title>Bonne Fête Papa - LADY</title>
+    <meta name="description" content="Une carte virtuelle pour souhaiter une bonne fête à votre papa.">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --light: #eff6ff;
+            --dark: #1e3a8a;
+            --highlight: #93c5fd;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+        #app {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .hero-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 25px auto;
+            border: 6px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            display: block;
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--highlight));
+            border-radius: 2px;
+        }
+        
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(30, 58, 138, 0.2);
+            min-width: 180px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        
+        .star {
+            position: absolute;
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: var(--primary);
+            position: relative;
+            padding: 0 40px;
+            margin: 30px 0;
+            font-size: 1.2rem;
+        }
+        
+        .quote::before, .quote::after {
+            content: '"';
+            font-size: 40px;
+            color: var(--accent);
+            position: absolute;
+            opacity: 0.6;
+        }
+        
+        .quote::before {
+            top: -20px;
+            left: 5px;
+        }
+        
+        .quote::after {
+            bottom: -40px;
+            right: 5px;
+        }
+        
+        .signature {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 30px;
+            font-style: normal;
+        }
+        
+        .highlight-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--highlight)) !important;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3) !important;
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                padding: 30px 25px;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            p {
+                font-size: 1.05rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                min-width: 160px;
+                font-size: 0.95rem;
+            }
+            
+            .hero-img {
+                width: 160px;
+                height: 160px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #app {
+                padding: 20px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Écran d'accueil -->
+        <div id="home-screen" class="card">
+            <h1>Bonne Fête Papa !</h1>
+            <img src="IMG/Screenshot 2025-06-15 051355.png"  class="hero-img floating">
+            <p>Une carte spéciale pour le meilleur papa du monde !</p>
+            <div class="btn-container">
+                <button id="start-btn" class="btn pulse">Commencer</button>
+            </div>
+        </div>
+        
+        <!-- Étape 1 -->
+        <div id="step1" class="card hidden">
+            <h1>Notre Super Papa</h1>
+            <p>En ce jour spécial, on voulait te dire que tu es notre héros. Merci d'être toujours là pour nous, de nous guider et de nous soutenir dans tout ce qu'on fait.</p>
+            <div class="quote">Un père est un homme qui attend de ses enfants qu'ils soient aussi bons qu'il aurait aimé l'être</div>
+            <div class="btn-container">
+                <button id="next1" class="btn">Continuer</button>
+            </div>
+        </div>
+        
+        <!-- Étape 2 -->
+        <div id="step2" class="card hidden">
+            <h1>Notre Modèle</h1>
+            <p>Tu nous as appris l'importance du travail, de l'honnêteté et du respect. Nous sommes fiers d'être tes enfants et on espère devenir aussi bien que toi.</p>
+            <div class="btn-container">
+                <button id="next2" class="btn">Suivant</button>
+            </div>
+        </div>
+        
+        <!-- Étape 3 -->
+        <div id="step3" class="card hidden">
+            <h1>Nos Aventures</h1>
+            <p>Que ce soient nos parties de foot, nos sorties en famille ou nos projets bricolage, chaque moment avec toi est un souvenir précieux qu'on gardera toujours.</p>
+            <div class="btn-container">
+                <button id="next3" class="btn">Continuer</button>
+            </div>
+        </div>
+        
+        <!-- Étape 4 -->
+        <div id="step4" class="card hidden">
+            <h1>On T'admire</h1>
+            <p>Merci d'être le papa formidable que tu es. Tu es notre plus grande inspiration et nous t'aimons plus que tout.</p>
+            <div class="signature">Tes enfants qui t'aiment</div>
+            <div class="btn-container">
+                <button id="surprise-btn" class="btn highlight-btn pulse">Surprise !</button>
+            </div>
+        </div>
+        
+        <!-- Étape finale -->
+        <div id="final-screen" class="card hidden">
+            <h1>Bonne Fête Papa !</h1>
+            <img src="IMG/Screenshot 2025-06-15 052130.png" alt="Cadeau" class="hero-img floating">
+            <p>Nous espérons que cette carte te plaira autant qu'on a pris plaisir à la créer. Passe une excellente journée !</p>
+            <div class="btn-container">
+                <button id="restart-btn" class="btn">Recommencer</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // État de l'application
+        const state = {
+            currentStep: 0
+        };
+        
+        // Éléments DOM
+        const elements = {
+            homeScreen: document.getElementById('home-screen'),
+            steps: [
+                document.getElementById('step1'),
+                document.getElementById('step2'),
+                document.getElementById('step3'),
+                document.getElementById('step4'),
+                document.getElementById('final-screen')
+            ],
+            buttons: {
+                start: document.getElementById('start-btn'),
+                next: [
+                    document.getElementById('next1'),
+                    document.getElementById('next2'),
+                    document.getElementById('next3')
+                ],
+                surprise: document.getElementById('surprise-btn'),
+                restart: document.getElementById('restart-btn')
+            }
+        };
+        
+        // Initialisation
+        function init() {
+            // Créer des étoiles décoratives
+            createStars();
+            
+            // Écouteurs d'événements
+            elements.buttons.start.addEventListener('click', startAdventure);
+            
+            elements.buttons.next.forEach((btn, index) => {
+                btn.addEventListener('click', () => nextStep(index + 1));
+            });
+            
+            elements.buttons.surprise.addEventListener('click', launchSurprise);
+            elements.buttons.restart.addEventListener('click', restartAdventure);
+        }
+        
+        // Démarrer l'aventure
+        function startAdventure() {
+            elements.homeScreen.classList.add('hidden');
+            elements.steps[0].classList.remove('hidden');
+            createConfetti();
+        }
+        
+        // Étape suivante
+        function nextStep(step) {
+            elements.steps[step - 1].classList.add('hidden');
+            elements.steps[step].classList.remove('hidden');
+            state.currentStep = step;
+            
+            if(step === 2 || step === 4) {
+                createConfetti();
+            }
+        }
+        
+        // Lancer la surprise
+        function launchSurprise() {
+            createConfetti(true);
+            elements.steps[3].classList.add('hidden');
+            elements.steps[4].classList.remove('hidden');
+            state.currentStep = 4;
+        }
+        
+        // Recommencer
+        function restartAdventure() {
+            elements.steps[4].classList.add('hidden');
+            elements.homeScreen.classList.remove('hidden');
+            state.currentStep = 0;
+            createConfetti();
+        }
+        
+        // Créer des étoiles décoratives
+        function createStars() {
+            const symbols = ['★', '✧', '✦', '✯', '✰'];
+            
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                star.style.color = ['#3b82f6', '#60a5fa', '#93c5fd', '#1e3a8a'][Math.floor(Math.random() * 4)];
+                
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                
+                document.body.appendChild(star);
+            }
+        }
+        
+        // Créer des confettis
+        function createConfetti(intense = false) {
+            const colors = ['#3b82f6', '#60a5fa', '#1e3a8a', '#93c5fd', '#bfdbfe'];
+            const count = intense ? 150 : 80;
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.width = '12px';
+                    confetti.style.height = '12px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-20px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.zIndex = '1000';
+                    confetti.style.opacity = '0.9';
+                    
+                    if(Math.random() > 0.7) {
+                        confetti.style.backgroundColor = 'transparent';
+                        confetti.style.border = '2px solid ' + colors[Math.floor(Math.random() * colors.length)];
+                    }
+                    
+                    document.body.appendChild(confetti);
+                    
+                    const animationDuration = 3000 + Math.random() * 2000;
+                    const rotation = Math.random() > 0.5 ? 360 : -360;
+                    
+                    confetti.animate([
+                        { 
+                            transform: `translate(${Math.random() * 200 - 100}px, ${window.innerHeight + 50}px) rotate(${rotation}deg)`, 
+                            opacity: 1 
+                        },
+                        { opacity: 0 }
+                    ], {
+                        duration: animationDuration,
+                        easing: 'cubic-bezier(0.1,0.8,0.3,1)'
+                    });
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, animationDuration);
+                }, i * (intense ? 20 : 30));
+            }
+        }
+        
+        // Démarrer l'application
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
