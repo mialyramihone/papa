@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bonne Fête à tous les Papas</title>
-    <meta name="description" content="Célébrons les papas avec amour et gratitude. Découvrez des messages inspirants et des idées de cadeaux pour la fête des pères.">
-    <link rel="icon" href="IMG/fond2-copie.ico" >
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <meta name="author" content="Mialy RAMIHONE">
+    <link rel="icon" href="img/fond2-copie.ico" type="IMG/icon">
+    <title>Bonne Fête Papa - LADY</title>
+    <meta name="description" content="Une carte virtuelle pour souhaiter une bonne fête à votre papa.">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3B82F6;
-            --primary-dark: #2563EB;
-            --accent: #F59E0B;
-            --light: #F8FAFC;
-            --dark: #1E293B;
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --light: #eff6ff;
+            --dark: #1e3a8a;
+            --highlight: #93c5fd;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
         
         * {
@@ -24,318 +30,437 @@
         }
         
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #f0f7ff, #e6f0fe);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: var(--dark);
             min-height: 100vh;
             overflow-x: hidden;
-            color: var(--dark);
+            line-height: 1.7;
         }
         
-        .hero-container {
-            position: relative;
+        #app {
             width: 100%;
-            max-width: 800px;
-            perspective: 1000px;
-        }
-        
-        .slider {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            transform-style: preserve-3d;
-        }
-        
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
-                        opacity 0.8s ease, 
-                        box-shadow 0.8s ease;
-            transform: rotateY(20deg) translateX(150%) scale(0.8);
-            opacity: 0;
-            backface-visibility: hidden;
-            overflow: hidden;
+            padding: 30px;
+            position: relative;
         }
         
-        .slide::before {
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 8px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         
-        .slide.active {
-            transform: rotateY(0) translateX(0) scale(1);
-            opacity: 1;
-            z-index: 10;
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3);
+        .hero-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 25px auto;
+            border: 6px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            display: block;
         }
         
-        .slide.prev {
-            transform: rotateY(-20deg) translateX(-150%) scale(0.8);
-            opacity: 0;
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
         }
         
-        h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-dark);
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.1);
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--highlight));
+            border-radius: 2px;
         }
         
         p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+            color: #4b5563;
             line-height: 1.8;
-            margin-bottom: 2rem;
-            max-width: 600px;
         }
         
-        .icon {
-            font-size: 5rem;
-            margin: 1.5rem 0;
-            filter: drop-shadow(0 5px 10px rgba(59, 130, 246, 0.2));
-            animation: float 4s ease-in-out infinite;
-        }
-        
-        .controls {
+        .btn-container {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            z-index: 20;
-            position: relative;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
         }
         
         .btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            cursor: pointer;
+            padding: 14px 35px;
             font-size: 1rem;
             font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(30, 58, 138, 0.2);
+            min-width: 180px;
             position: relative;
             overflow: hidden;
+            letter-spacing: 0.5px;
+            font-family: 'Roboto', sans-serif;
         }
         
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
         }
         
         .btn:active {
-            transform: translateY(1px);
+            transform: translateY(0);
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
+        .hidden {
+            display: none !important;
         }
         
-        .btn:hover::before {
-            left: 100%;
+        .floating {
+            animation: float 4s ease-in-out infinite;
         }
         
-        .dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-top: 2rem;
-            z-index: 20;
-            position: relative;
-        }
-        
-        .dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #E2E8F0;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .dot.active {
-            background: var(--primary);
-            transform: scale(1.4);
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        .pulse {
+            animation: pulse 2s infinite;
         }
         
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(3deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
         
-        .confetti {
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        
+        .star {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+            z-index: 0;
             pointer-events: none;
-            z-index: 100;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: var(--primary);
+            position: relative;
+            padding: 0 40px;
+            margin: 30px 0;
+            font-size: 1.2rem;
+        }
+        
+        .quote::before, .quote::after {
+            content: '"';
+            font-size: 40px;
+            color: var(--accent);
+            position: absolute;
+            opacity: 0.6;
+        }
+        
+        .quote::before {
+            top: -20px;
+            left: 5px;
+        }
+        
+        .quote::after {
+            bottom: -40px;
+            right: 5px;
+        }
+        
+        .signature {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 30px;
+            font-style: normal;
+        }
+        
+        .highlight-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--highlight)) !important;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3) !important;
         }
         
         @media (max-width: 768px) {
-            .slide {
-                padding: 2rem 1.5rem;
-                height: 450px;
+            .card {
+                padding: 30px 25px;
             }
             
-            h2 {
-                font-size: 2rem;
+            h1 {
+                font-size: 2.3rem;
             }
             
             p {
-                font-size: 1rem;
+                font-size: 1.05rem;
             }
             
-            .icon {
-                font-size: 4rem;
+            .btn {
+                padding: 12px 25px;
+                min-width: 160px;
+                font-size: 0.95rem;
+            }
+            
+            .hero-img {
+                width: 160px;
+                height: 160px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #app {
+                padding: 20px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="hero-container">
-        <div class="slider" id="slider">
-            <!-- Slide 1 -->
-            <div class="slide active">
-                <h2>Bonne Fête à tous les Papas</h2>
-                <div class="icon">👨‍👧‍👦</div>
-                <p>En cette journée spéciale, nous célébrons tous les pères extraordinaires qui font la différence chaque jour.</p>
-            </div>
-            
-            <!-- Slide 2 -->
-            <div class="slide">
-                <h2>Nos Héros du Quotidien</h2>
-                <div class="icon">🦸‍♂️</div>
-                <p>Merci d'être ces rocs inébranlables, ces protecteurs discrets qui veillent sans faire de bruit.</p>
-            </div>
-            
-            <!-- Slide 3 -->
-            <div class="slide">
-                <h2>Votre Amour Infini</h2>
-                <div class="icon">❤️</div>
-                <p>Votre tendresse est comme l'océan - vaste, profonde et toujours présente, même quand elle semble calme.</p>
-            </div>
-            
-            <!-- Slide 4 -->
-            <div class="slide">
-                <h2>Bonne Fête !</h2>
-                <div class="icon">🎉</div>
-                <p>Que cette journée vous apporte autant de bonheur que vous en donnez chaque jour à vos enfants.</p>
+    <div id="app">
+        <!-- Écran d'accueil -->
+        <div id="home-screen" class="card">
+            <h1>Bonne Fête Papa !</h1>
+            <img src="IMG/Screenshot 2025-06-15 051355.png"  class="hero-img floating">
+            <p>Une carte spéciale pour le meilleur papa du monde !</p>
+            <div class="btn-container">
+                <button id="start-btn" class="btn pulse">Commencer</button>
             </div>
         </div>
         
-        <div class="controls">
-            <button class="btn" onclick="prevSlide()">Précédent</button>
-            <button class="btn" onclick="nextSlide()">Suivant</button>
+        <!-- Étape 1 -->
+        <div id="step1" class="card hidden">
+            <h1>Notre Super Papa</h1>
+            <p>En ce jour spécial, on voulait te dire que tu es notre héros. Merci d'être toujours là pour nous, de nous guider et de nous soutenir dans tout ce qu'on fait.</p>
+            <div class="quote">Un père est un homme qui attend de ses enfants qu'ils soient aussi bons qu'il aurait aimé l'être</div>
+            <div class="btn-container">
+                <button id="next1" class="btn">Continuer</button>
+            </div>
         </div>
         
-        <div class="dots" id="dots">
-            <div class="dot active" onclick="goToSlide(0)"></div>
-            <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
-            <div class="dot" onclick="goToSlide(3)"></div>
+        <!-- Étape 2 -->
+        <div id="step2" class="card hidden">
+            <h1>Notre Modèle</h1>
+            <p>Tu nous as appris l'importance du travail, de l'honnêteté et du respect. Nous sommes fiers d'être tes enfants et on espère devenir aussi bien que toi.</p>
+            <div class="btn-container">
+                <button id="next2" class="btn">Suivant</button>
+            </div>
+        </div>
+        
+        <!-- Étape 3 -->
+        <div id="step3" class="card hidden">
+            <h1>Nos Aventures</h1>
+            <p>Que ce soient nos parties de foot, nos sorties en famille ou nos projets bricolage, chaque moment avec toi est un souvenir précieux qu'on gardera toujours.</p>
+            <div class="btn-container">
+                <button id="next3" class="btn">Continuer</button>
+            </div>
+        </div>
+        
+        <!-- Étape 4 -->
+        <div id="step4" class="card hidden">
+            <h1>On T'admire</h1>
+            <p>Merci d'être le papa formidable que tu es. Tu es notre plus grande inspiration et nous t'aimons plus que tout.</p>
+            <div class="signature">Tes enfants qui t'aiment</div>
+            <div class="btn-container">
+                <button id="surprise-btn" class="btn highlight-btn pulse">Surprise !</button>
+            </div>
+        </div>
+        
+        <!-- Étape finale -->
+        <div id="final-screen" class="card hidden">
+            <h1>Bonne Fête Papa !</h1>
+            <img src="IMG/Screenshot 2025-06-15 052130.png" alt="Cadeau" class="hero-img floating">
+            <p>Nous espérons que cette carte te plaira autant qu'on a pris plaisir à la créer. Passe une excellente journée !</p>
+            <div class="btn-container">
+                <button id="restart-btn" class="btn">Recommencer</button>
+            </div>
         </div>
     </div>
-
+    
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        const totalSlides = slides.length;
+        // État de l'application
+        const state = {
+            currentStep: 0
+        };
         
-        function updateSlider() {
-            // Animation 3D des slides
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active', 'prev');
-                
-                if (index === currentSlide) {
-                    slide.classList.add('active');
-                } else if (index < currentSlide) {
-                    slide.classList.add('prev');
-                }
+        // Éléments DOM
+        const elements = {
+            homeScreen: document.getElementById('home-screen'),
+            steps: [
+                document.getElementById('step1'),
+                document.getElementById('step2'),
+                document.getElementById('step3'),
+                document.getElementById('step4'),
+                document.getElementById('final-screen')
+            ],
+            buttons: {
+                start: document.getElementById('start-btn'),
+                next: [
+                    document.getElementById('next1'),
+                    document.getElementById('next2'),
+                    document.getElementById('next3')
+                ],
+                surprise: document.getElementById('surprise-btn'),
+                restart: document.getElementById('restart-btn')
+            }
+        };
+        
+        // Initialisation
+        function init() {
+            // Créer des étoiles décoratives
+            createStars();
+            
+            // Écouteurs d'événements
+            elements.buttons.start.addEventListener('click', startAdventure);
+            
+            elements.buttons.next.forEach((btn, index) => {
+                btn.addEventListener('click', () => nextStep(index + 1));
             });
             
-            // Mise à jour de la pagination
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
+            elements.buttons.surprise.addEventListener('click', launchSurprise);
+            elements.buttons.restart.addEventListener('click', restartAdventure);
+        }
+        
+        // Démarrer l'aventure
+        function startAdventure() {
+            elements.homeScreen.classList.add('hidden');
+            elements.steps[0].classList.remove('hidden');
+            createConfetti();
+        }
+        
+        // Étape suivante
+        function nextStep(step) {
+            elements.steps[step - 1].classList.add('hidden');
+            elements.steps[step].classList.remove('hidden');
+            state.currentStep = step;
             
-            // Lancer des confettis pour la dernière slide
-            if (currentSlide === totalSlides - 1) {
+            if(step === 2 || step === 4) {
                 createConfetti();
             }
         }
         
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlider();
+        // Lancer la surprise
+        function launchSurprise() {
+            createConfetti(true);
+            elements.steps[3].classList.add('hidden');
+            elements.steps[4].classList.remove('hidden');
+            state.currentStep = 4;
         }
         
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlider();
+        // Recommencer
+        function restartAdventure() {
+            elements.steps[4].classList.add('hidden');
+            elements.homeScreen.classList.remove('hidden');
+            state.currentStep = 0;
+            createConfetti();
         }
         
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlider();
+        // Créer des étoiles décoratives
+        function createStars() {
+            const symbols = ['★', '✧', '✦', '✯', '✰'];
+            
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                star.style.color = ['#3b82f6', '#60a5fa', '#93c5fd', '#1e3a8a'][Math.floor(Math.random() * 4)];
+                
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                
+                document.body.appendChild(star);
+            }
         }
         
         // Créer des confettis
-        function createConfetti() {
-            const colors = ['#3B82F6', '#F59E0B', '#10B981', '#EF4444', '#8B5CF6'];
+        function createConfetti(intense = false) {
+            const colors = ['#3b82f6', '#60a5fa', '#1e3a8a', '#93c5fd', '#bfdbfe'];
+            const count = intense ? 150 : 80;
             
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < count; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.width = '12px';
+                    confetti.style.height = '12px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.top = '-10px';
-                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.top = '-20px';
                     confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.zIndex = '1000';
+                    confetti.style.opacity = '0.9';
+                    
+                    if(Math.random() > 0.7) {
+                        confetti.style.backgroundColor = 'transparent';
+                        confetti.style.border = '2px solid ' + colors[Math.floor(Math.random() * colors.length)];
+                    }
                     
                     document.body.appendChild(confetti);
                     
                     const animationDuration = 3000 + Math.random() * 2000;
+                    const rotation = Math.random() > 0.5 ? 360 : -360;
                     
                     confetti.animate([
                         { 
-                            transform: `translate(${Math.random() * 200 - 100}px, ${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`,
+                            transform: `translate(${Math.random() * 200 - 100}px, ${window.innerHeight + 50}px) rotate(${rotation}deg)`, 
                             opacity: 1 
                         },
                         { opacity: 0 }
@@ -347,28 +472,12 @@
                     setTimeout(() => {
                         confetti.remove();
                     }, animationDuration);
-                }, i * 50);
+                }, i * (intense ? 20 : 30));
             }
         }
         
-        // Navigation clavier
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-        });
-        
-        // Animation automatique
-        let autoSlide = setInterval(nextSlide, 5000);
-        
-        // Arrêter l'animation automatique quand l'utilisateur interagit
-        function resetAutoSlide() {
-            clearInterval(autoSlide);
-            autoSlide = setInterval(nextSlide, 5000);
-        }
-        
-        document.querySelectorAll('.btn, .dot').forEach(element => {
-            element.addEventListener('click', resetAutoSlide);
-        });
+        // Démarrer l'application
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
